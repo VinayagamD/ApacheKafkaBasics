@@ -30,11 +30,6 @@ public class TwitterProducer {
 
     private static final String BOOTSTRAP_SERVERS = "localhost:9092";
 
-    private final String CONSUMER_KEY = "CWpVX762aYsmM7AzlRYQZEXO2";
-    private final String CONSUMER_SECRET = "Gggt6BP2AD5tqJYGLCbPgYkKlZvg5XLTle2ssiJNGZhsTpuI1S";
-    private final String API_TOKEN = "396442752-NVT6L3aP4vWZoR45NaaVDFL6aysAFxEtmfUZ3Enf";
-    private final String API_SECRET = "ZTBQ1viaE7r14lAypSdPUGfmUisrso3wTESd23os4qmpj";
-
     List<String> terms = Lists.newArrayList("kafka", "java");
 
     public static void main(String[] args) {
@@ -98,7 +93,7 @@ public class TwitterProducer {
         hosebirdEndpoint.trackTerms(terms);
 
     // These secrets should be read from a config file
-        Authentication hosebirdAuth = new OAuth1(CONSUMER_KEY, CONSUMER_SECRET, API_TOKEN, API_SECRET);
+//        Authentication hosebirdAuth = new OAuth1(CONSUMER_KEY, CONSUMER_SECRET, API_TOKEN, API_SECRET);
 
         ClientBuilder builder = new ClientBuilder()
                 .name("Hosebird-Client-01")                              // optional: mainly for the logs
