@@ -1,5 +1,31 @@
 package com.vinaylogics.twitterkeyprtoection.factory;
 
-public abstract class KeyFactory {
+import com.vinaylogics.twitterkeyprtoection.exception.InvalidKeyException;
 
+public class KeyFactory {
+
+    private static final KeyFactory INSTANCE = new KeyFactory();
+
+    private KeyFactory(){
+    }
+
+    public static KeyFactory getINSTANCE() {
+        return INSTANCE;
+    }
+
+    public static enum KeyType{
+        TWITTER
+    }
+
+    public Key createKey(KeyType type){
+        Key key = null;
+        switch (type){
+            case TWITTER:
+                key = new TwitterKey();
+                break;
+            default:
+                throw new InvalidKeyException("Invalid key type");
+        }
+        return key;
+    }
 }

@@ -1,32 +1,31 @@
 package com.vinaylogics.twitterkeyprtoection;
 
+import com.vinaylogics.twitterkeyprtoection.factory.Key;
+import com.vinaylogics.twitterkeyprtoection.factory.KeyFactory;
+
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import java.time.Period;
-import java.util.Base64;
 import java.util.Properties;
 
 public class TwitterKeyProvider {
     private static final Object LOCK = new Object();
     private static TwitterKeyProvider instance;
+    private final Key key;
 
-    private final Properties properties;
 
-    private TwitterKeyProvider(Properties properties) {
-        this.properties = properties;
+    private TwitterKeyProvider(Key key) {
+        this.key = key;
     }
 
+
     public static TwitterKeyProvider getInstance() throws IOException {
-        if(instance == null) {
+        if (instance == null) {
 
             synchronized (LOCK) {
                 if (instance == null) {
-                    try (InputStream inputStream = TwitterKeyProvider.class.getClassLoader().getResourceAsStream("twitter_key.properties")) {
-                        Properties properties = new Properties();
-                        properties.load(inputStream);
-                        instance = new TwitterKeyProvider(properties);
-                    }
+                    Key key = KeyFactory.getINSTANCE().createKey(KeyFactory.KeyType.TWITTER);
+                    key.loadKey();
+                    instance = new TwitterKeyProvider(key);
                 }
             }
         }
@@ -34,23 +33,20 @@ public class TwitterKeyProvider {
         return instance;
     }
 
-    public enum Keys{
-        PROTECTION_KEY("protection_key"),
-        CONSUMER_KEY("CONSUMER_KEY"),
-        CONSUMER_SECRET("CONSUMER_SECRET"),
-        API_TOKEN("API_TOKEN"),
-        API_SECRET("API_SECRET");
+    public String getConsumerKey() {
+        return key.getKey(Key.ApiKey.CONSUMER_KEY);
+    }
 
-        private final String key;
-        private static final String KEY_SPLIT = ";";
+    public String getConsumerSecret() {
+        return key.getKey(Key.ApiKey.CONSUMER_SECRET);
+    }
 
-        Keys(String key) {
-            this.key = key;
-        }
+    public String getApiToken() {
+        return key.getKey(Key.ApiKey.API_TOKEN);
+    }
 
-        public String decodeString(String encodeString){
-            return new String(Base64.getDecoder().decode(encodeString), StandardCharsets.UTF_8).split(KEY_SPLIT)[1];
-        }
+    public String getApiSecret() {
+        return key.getKey(Key.ApiKey.API_SECRET);
     }
 
 

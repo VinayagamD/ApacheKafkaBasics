@@ -16,6 +16,7 @@ repositories {
 }
 
 dependencies {
+    implementation project(':twitter_key_protection')
     implementation group: 'org.apache.kafka', name: 'kafka-clients', version: '2.5.0'
     // https://mvnrepository.com/artifact/com.twitter/hbc-core
     implementation group: 'com.twitter', name: 'hbc-core', version: '2.2.0'

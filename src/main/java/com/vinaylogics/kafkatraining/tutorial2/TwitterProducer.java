@@ -10,6 +10,7 @@ import com.twitter.hbc.core.endpoint.StatusesFilterEndpoint;
 import com.twitter.hbc.core.processor.StringDelimitedProcessor;
 import com.twitter.hbc.httpclient.auth.Authentication;
 import com.twitter.hbc.httpclient.auth.OAuth1;
+import com.vinaylogics.twitterkeyprtoection.TwitterKeyProvider;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -17,6 +18,7 @@ import org.apache.kafka.common.serialization.StringSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
 import java.util.Properties;
@@ -32,11 +34,11 @@ public class TwitterProducer {
 
     List<String> terms = Lists.newArrayList("kafka", "java");
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         new TwitterProducer().run();
     }
 
-    public void run() {
+    public void run() throws IOException {
         // create a twitter client
         /** Set up your blocking queues: Be sure to size these properly based on expected TPS of your stream */
         BlockingQueue<String> msgQueue = new LinkedBlockingQueue<>(100000);
@@ -82,7 +84,7 @@ public class TwitterProducer {
     }
 
 
-    public Client createTwitterClient(BlockingQueue<String> msgQueue) {
+    public Client createTwitterClient(BlockingQueue<String> msgQueue) throws IOException {
 
 
         /** Declare the host you want to connect to, the endpoint, and authentication (basic auth or oauth) */
@@ -91,9 +93,11 @@ public class TwitterProducer {
     // Optional: set up some followings and track terms
 
         hosebirdEndpoint.trackTerms(terms);
+        TwitterKeyProvider keyProvider = TwitterKeyProvider.getInstance();
 
     // These secrets should be read from a config file
-//        Authentication hosebirdAuth = new OAuth1(CONSUMER_KEY, CONSUMER_SECRET, API_TOKEN, API_SECRET);
+        Authentication hosebirdAuth = new OAuth1(keyProvider.getConsumerKey(), keyProvider.getConsumerSecret(),
+                keyProvider.getApiToken(), keyProvider.getApiSecret());
 
         ClientBuilder builder = new ClientBuilder()
                 .name("Hosebird-Client-01")                              // optional: mainly for the logs
