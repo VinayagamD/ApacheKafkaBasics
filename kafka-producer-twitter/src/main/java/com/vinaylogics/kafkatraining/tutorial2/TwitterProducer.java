@@ -129,9 +129,6 @@ public class TwitterProducer {
         properties.setProperty(ProducerConfig.LINGER_MS_CONFIG, "20");
         properties.setProperty(ProducerConfig.BATCH_SIZE_CONFIG, Integer.toString(32*1024)); // 32 KB batch size
 
-
-
-
         // create a producer
         return new KafkaProducer<>(properties);
     }

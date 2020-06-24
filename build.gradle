@@ -15,23 +15,33 @@ subprojects {
     repositories {
         mavenCentral()
     }
-    java {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
+
 
     dependencies {
-        implementation project(':twitter_key_protection')
-        implementation project(':kafka-basics')
-        implementation project(':kafka-producer-twitter')
-        implementation group: 'org.apache.kafka', name: 'kafka-clients', version: '2.5.0'
-        // https://mvnrepository.com/artifact/com.twitter/hbc-core
-        implementation group: 'com.twitter', name: 'hbc-core', version: '2.2.0'
-
 
         testImplementation group: 'junit', name: 'junit', version: '4.13'
-        // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
-        implementation group: 'org.slf4j', name: 'slf4j-simple', version: '2.0.0-alpha1'
     }
 
 }
+
+project(':kafka-basics'){
+    dependencies {
+        implementation group: 'org.apache.kafka', name: 'kafka-clients', version: '2.5.0'
+        // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
+        implementation group: 'org.slf4j', name: 'slf4j-simple', version: '2.0.0-alpha1'
+        implementation project(':twitter_key_protection')
+    }
+}
+
+project(':kafka-producer-twitter'){
+    dependencies {
+        implementation group: 'org.apache.kafka', name: 'kafka-clients', version: '2.5.0'
+        // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
+        implementation group: 'org.slf4j', name: 'slf4j-simple', version: '2.0.0-alpha1'
+        // https://mvnrepository.com/artifact/com.twitter/hbc-core
+        implementation group: 'com.twitter', name: 'hbc-core', version: '2.2.0'
+
+    }
+}
+
+
