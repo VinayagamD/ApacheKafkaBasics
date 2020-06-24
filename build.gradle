@@ -35,6 +35,7 @@ project(':kafka-basics'){
 
 project(':kafka-producer-twitter'){
     dependencies {
+        implementation project(':twitter_key_protection')
         implementation group: 'org.apache.kafka', name: 'kafka-clients', version: '2.5.0'
         // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
         implementation group: 'org.slf4j', name: 'slf4j-simple', version: '2.0.0-alpha1'
