@@ -4,9 +4,6 @@ import com.vinaylogics.twitterkeyprtoection.factory.Key;
 import com.vinaylogics.twitterkeyprtoection.factory.KeyFactory;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
-
 public class TwitterKeyProvider {
     private static final Object LOCK = new Object();
     private static TwitterKeyProvider instance;
