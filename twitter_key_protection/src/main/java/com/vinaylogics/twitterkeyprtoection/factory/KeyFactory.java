@@ -13,12 +13,12 @@ public class KeyFactory {
         return INSTANCE;
     }
 
-    public static enum KeyType{
+    public enum KeyType{
         TWITTER
     }
 
     public Key createKey(KeyType type){
-        Key key = null;
+        Key key;
         switch (type){
             case TWITTER:
                 key = new TwitterKey();

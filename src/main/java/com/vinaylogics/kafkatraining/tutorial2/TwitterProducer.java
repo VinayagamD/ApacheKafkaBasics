@@ -32,7 +32,7 @@ public class TwitterProducer {
 
     private static final String BOOTSTRAP_SERVERS = "localhost:9092";
 
-    List<String> terms = Lists.newArrayList("kafka", "java");
+    List<String> terms = Lists.newArrayList("bitcoin", "usa", "politics", "sport", "soccer");
 
     public static void main(String[] args) throws IOException {
         new TwitterProducer().run();
@@ -124,6 +124,14 @@ public class TwitterProducer {
         properties.setProperty(ProducerConfig.RETRIES_CONFIG, Integer.toString(Integer.MAX_VALUE));
         properties.setProperty(ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION, "5");// kafka 2.0 >= 1.1
         // we can keep this step. Use 1 Other wise
+
+        // high throughput producer (at the expense of a bit of latency and  CPU usage)
+        properties.setProperty(ProducerConfig.COMPRESSION_TYPE_CONFIG, "snappy");
+        properties.setProperty(ProducerConfig.LINGER_MS_CONFIG, "20");
+        properties.setProperty(ProducerConfig.BATCH_SIZE_CONFIG, Integer.toString(32*1024)); // 32 KB batch size
+
+
+
 
         // create a producer
         return new KafkaProducer<>(properties);
