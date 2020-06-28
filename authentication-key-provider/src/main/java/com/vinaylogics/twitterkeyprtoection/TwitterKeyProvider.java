@@ -2,6 +2,7 @@ package com.vinaylogics.twitterkeyprtoection;
 
 import com.vinaylogics.twitterkeyprtoection.factory.Key;
 import com.vinaylogics.twitterkeyprtoection.factory.KeyFactory;
+import com.vinaylogics.twitterkeyprtoection.factory.TwitterKey;
 
 import java.io.IOException;
 public class TwitterKeyProvider {
@@ -15,13 +16,12 @@ public class TwitterKeyProvider {
     }
 
 
-    public static TwitterKeyProvider getInstance() throws IOException {
+    public static TwitterKeyProvider getInstance() {
         if (instance == null) {
 
             synchronized (LOCK) {
                 if (instance == null) {
                     Key key = KeyFactory.getINSTANCE().createKey(KeyFactory.KeyType.TWITTER);
-                    key.loadKey();
                     instance = new TwitterKeyProvider(key);
                 }
             }
@@ -31,19 +31,19 @@ public class TwitterKeyProvider {
     }
 
     public String getConsumerKey() {
-        return key.getKey(Key.ApiKey.CONSUMER_KEY);
+        return key.getData(TwitterKey.TwitterKeyData.CONSUMER_KEY);
     }
 
     public String getConsumerSecret() {
-        return key.getKey(Key.ApiKey.CONSUMER_SECRET);
+        return key.getData(TwitterKey.TwitterKeyData.CONSUMER_SECRET);
     }
 
     public String getApiToken() {
-        return key.getKey(Key.ApiKey.API_TOKEN);
+        return key.getData(TwitterKey.TwitterKeyData.API_TOKEN);
     }
 
     public String getApiSecret() {
-        return key.getKey(Key.ApiKey.API_SECRET);
+        return key.getData(TwitterKey.TwitterKeyData.API_SECRET);
     }
 
 

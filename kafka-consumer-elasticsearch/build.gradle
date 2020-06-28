@@ -1,0 +1,17 @@
+plugins {
+    id 'java'
+}
+
+group 'com.vinaylogics'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    def elastic_version = "7.8.0"
+    // https://mvnrepository.com/artifact/org.elasticsearch.gradle/build-tools
+    implementation "org.elasticsearch.gradle:build-tools:$elastic_version"
+    implementation "org.elasticsearch.client:elasticsearch-rest-high-level-client:$elastic_version"
+}

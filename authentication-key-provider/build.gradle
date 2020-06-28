@@ -1,0 +1,18 @@
+plugins {
+    id 'java'
+    id "com.github.johnrengelman.shadow" version "5.1.0"
+}
+
+group 'com.vinaylogics'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+
+}
+
+dependencies {
+    // https://mvnrepository.com/artifact/org.elasticsearch.gradle/build-tools
+    implementation group: 'org.elasticsearch.gradle', name: 'build-tools', version: '7.8.0'
+
+}

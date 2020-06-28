@@ -1,5 +1,6 @@
 rootProject.name = 'kafka-training'
-include 'twitter_key_protection'
+include 'authentication-key-provider'
 include 'kafka-basics'
 include 'kafka-producer-twitter'
+include 'kafka-consumer-elasticsearch'
 

@@ -12,9 +12,10 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/authentication-key-provider" />
             <option value="$PROJECT_DIR$/kafka-basics" />
+            <option value="$PROJECT_DIR$/kafka-consumer-elasticsearch" />
             <option value="$PROJECT_DIR$/kafka-producer-twitter" />
-            <option value="$PROJECT_DIR$/twitter_key_protection" />
           </set>
         </option>
         <option name="useQualifiedModuleNames" value="true" />

@@ -13,15 +13,20 @@ public class KeyFactory {
         return INSTANCE;
     }
 
-    public enum KeyType{
-        TWITTER
+    public enum KeyType  {
+        TWITTER,
+        ELASTIC;
+
     }
 
     public Key createKey(KeyType type){
         Key key;
         switch (type){
             case TWITTER:
-                key = new TwitterKey();
+                key = new TwitterKey(type);
+                break;
+            case ELASTIC:
+                key = new ElasticKey(type);
                 break;
             default:
                 throw new InvalidKeyException("Invalid key type");
